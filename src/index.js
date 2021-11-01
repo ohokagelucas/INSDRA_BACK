@@ -10,11 +10,11 @@ const app = express()
 mongoose.connect(mongoConnection, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useFindAndModify: false    
+    useFindAndModify: false
 }, () => console.log('Connected to database'))
 
 app.use(cors())
 app.use(express.json())
 app.use(router)
 
-app.listen(process.env.PORT || 3333, () => console.log('Server running'))
+app.listen(process.env.PORT || 27017, () => console.log('Server running'))
