@@ -8,7 +8,7 @@ const Schema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },    
+    },
     name: {
         type: String,
         required: true
@@ -20,7 +20,11 @@ const Schema = new mongoose.Schema({
     avatar: {
         type: String,
         required: true
-    }
+    },
+    follow: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
     ,
     site: {
         type: String

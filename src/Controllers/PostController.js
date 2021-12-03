@@ -4,23 +4,27 @@ module.exports = {
     async createPost(req, res) {
         const {
             picture,
-            description
+            description ,
+            comentario,
+            mensagem           
         } = req.body
 
         const { user } = req.headers
 
-        try {           
+        try {
             const newPost = await Post.create({
                 picture,
                 description,
-                user
-            })            
+                user,
+                comentario,
+                mensagem    
+            })
 
             return res.status(200).send({
                 message: 'Post created successfully',
                 data: newPost
             })
-        } catch(err) {
+        } catch (err) {
             return res.status(400).send(err)
         }
     },
@@ -34,7 +38,7 @@ module.exports = {
                 message: 'All posts',
                 data: allPosts
             })
-        } catch(err) {
+        } catch (err) {
             return res.status(400).send(err)
         }
     },
@@ -42,7 +46,7 @@ module.exports = {
     async deletePost(req, res) {
         const { post_id } = req.params
         const { user_id } = req.headers
-        
+
         try {
             const belongsToUser = await Post.findOne({ user: user_id }).where({ _id: post_id })
             if (!belongsToUser) return res.status(400).send('Operation not allowed')
@@ -50,13 +54,13 @@ module.exports = {
             const postExists = await Post.findById(post_id)
             if (!postExists) return res.status(400).send('Post does not exist')
 
-            const deletedPost = await Post.findByIdAndDelete(post_id)            
+            const deletedPost = await Post.findByIdAndDelete(post_id)
 
             return res.status(200).send({
                 message: 'Deleted successfully',
                 data: deletedPost
             })
-        } catch(err) {
+        } catch (err) {
             return res.status(400).send(err)
         }
     },
@@ -83,7 +87,7 @@ module.exports = {
                 message: 'Updated successfully',
                 data: editPost
             })
-        } catch(err) {
+        } catch (err) {
             return res.status(400).send(err)
         }
     }

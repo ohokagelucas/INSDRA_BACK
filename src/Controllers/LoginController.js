@@ -7,7 +7,7 @@ module.exports = {
         try {
             const validUsername = await User.findOne({
                 username
-            }) 
+            })
             if (!validUsername) return res.status(400).send({ message: 'User does not exist' })
 
             const validPassword = await User.findOne({
@@ -21,7 +21,7 @@ module.exports = {
 
             return res.status(200).send({ message: 'Success', data: loggedIn })
 
-        } catch(err) {
+        } catch (err) {
             return res.status(400).send(err)
         }
     }
